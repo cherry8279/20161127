@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Rubik');
+        @import url(http://fonts.googleapis.com/earlyaccess/cwtexyen.css);
+        * {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            font-size: 100%;
+            font-family: "cwTeXYen";
+        }
+        body {
+            background-color: #eee;
+        }
+        h2 {
+            font-size: 150%;
+            margin: 0 0 0.5em 0;
+        }
+        .item {
+            width: 600px;
+            margin: auto;
+            padding: 30px;
+            background-color: #fff;
+            border: 1px solid #aaa;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            
+        }
+        .item img {
+            width: 100%;
+        }
+    </style>
+    <script src = "http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script>
+        $(function(){
+            var url = "http://data.kaohsiung.gov.tw/opendata/DownLoad.aspx?Type=2&CaseNo1=AV&CaseNo2=2&FileType=1&Lang=C&FolderType=";
+            
+            $.ajax({
+                url:url,
+                dataType:"json",
+                success:function(e){
+                    $(e).each(function(){
+                        //變數前後要用+this.Picture1+包起來
+                        //雙引號裡面的雙引號 用反斜線\
+                        var c = "<div class=\"item\">";
+                        c += "<h2>"+ this.Name +"</h2>"
+                        c += "<p>"+ this.Description +"</p>"
+                        c += "<p>地址："+ this.Add +"</p>"
+                        c += "<p>電話："+ this.Tel +"</p>"
+                        c += "<p>營業時間："+ this.Opentime +"</p>"
+                        c += "<img src=\""+ this.Picture1 +"\">"
+                        c += "</div>"
+                        $(".container").append(c);
+                    });
+                },
+                error:function(){
+                    console.log("fail")
+                }
+            })
+        })
+    </script>    
+</head>
+<body>
+    <div class="container">
+    </div>
+</body>
+</html>

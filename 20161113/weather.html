@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Rubik');
+        @import url(http://fonts.googleapis.com/earlyaccess/cwtexyen.css);
+        * {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            font-size: 100%;
+            font-family: "cwTeXYen";
+        }
+        body {
+            background-color: #eee;
+        }
+        h2 {
+            font-size: 150%;
+            margin: 0 0 0.5em 0;
+        }
+        .item {
+            width: 600px;
+            margin: auto;
+            padding: 30px;
+            background-color: #fff;
+            border: 1px solid #aaa;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            
+        }
+    </style>
+    <script src = "http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script>
+        $(function(){
+            var url = "http://api.openweathermap.org/data/2.5/weather?q=Taipei,tw&appid=ceb551c51fa8e0c259785ae7179794bb&units=metric&lang=zh_TW";
+            
+            $.ajax({
+                url:url,
+                dataType:"json",
+                success:function(e){
+//                    $(".temp").text("溫度："+e.main.temp);
+//                    $(".des").text("氣候："+e.weather[0].description);
+                    
+                    var c = "<div class=\"item\">";
+                    c += "<h2>"+ e.name +"</h2>"
+                    c += "<p>溫度："+ e.main.temp +"</p>"
+                    c += "<p>氣候："+ e.weather[0].description +"</p>"
+                    c += "<p><img src='http://openweathermap.org/img/w/"+ e.weather[0].icon +".png' /></p>"
+                    c += "</div>"
+                    $(".container").append(c);
+                },
+                error:function(){
+                    console.log("fail")
+                }
+            })
+        })
+    </script>    
+</head>
+<body>
+    <div class="container">
+        <div class="temp"></div>
+        <div class="des"></div>
+    </div>
+</body>
+</html>

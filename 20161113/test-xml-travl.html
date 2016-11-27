@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Rubik');
+        @import url(http://fonts.googleapis.com/earlyaccess/cwtexyen.css);
+        * {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            font-size: 100%;
+            font-family: "cwTeXYen", "Noto Sans TC", sans-serif;
+        }
+        
+        body {
+            background-color: #eee;
+        }
+        
+        h2 {
+            font-size: 175%;
+            margin: 0 0 0.5em 0;
+        }
+        
+        p {
+            margin: 0.5em 0;
+        }
+        
+        .item {
+            width: 600px;
+            margin: auto;
+            padding: 30px;
+            background-color: #fff;
+            border: 1px solid #aaa;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .item img {
+            width: 100%;
+        }
+    </style>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script>
+        $(function () {
+            var url = "travelStayCHINESE.xml";
+
+            $.ajax({
+                url: url,
+                dataType: "xml",
+                success: function (e) {
+                    $(e).find("Section").each(function () {
+                        var name = $(this).find("stitle").text();
+                        var xurl = $(this).find("xurl").text();
+                        var add = $(this).find("address").text();
+                        var tel = $(this).find("MEMO_TEL").text();
+                        var pic = $(this).find("img").eq(0).text();
+
+                        var c = "<div class=\"item\">";
+                        c += "<h2>" + name + "</h2>"
+                        if (xurl.length != 0) {
+                            c += "<p><a href=" + xurl + " target=\"_blank\">" + xurl + "</a></p>"
+                        } else {
+                            c += "<p>暫無官方網站</p>"
+                        }
+                        c += "<p>地址：" + add + "</p>"
+                        c += "<p>電話：" + tel + "</p>"
+                        if (pic.length != 0) {
+                            c += "<img src='" + pic + "'>"
+                        }
+                        c += "</div>"
+                        $(".container").append(c);
+                    });
+                },
+                error: function () {
+                    console.log("fail")
+                }
+            })
+        })
+    </script>
+</head>
+
+<body>
+    <div class="container">
+    </div>
+</body>
+
+</html>

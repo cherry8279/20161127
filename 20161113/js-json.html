@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script>
+        var xhr = new XMLHttpRequest();
+        var url = "http://data.kaohsiung.gov.tw/opendata/DownLoad.aspx?Type=1&CaseNo1=AV&CaseNo2=1&FileType=1&Lang=C&FolderType=";
+        //onreadystatechange可用比較多東西,onload也可以
+        xhr.onreadystatechange = function(){
+            //200是網頁載入成功
+            if(this.status == 200){
+                document.getElementById("output").textContent=this.responseText;
+            }else{
+                document.getElementById("output").textContent="回應失敗";
+            }
+        }
+        xhr.open("GET",url,true);
+        xhr.send();
+    </script>
+</head>
+<body>
+    <div id="output"></div>
+</body>
+</html>
