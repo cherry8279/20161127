@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="javascript:;" id="myForm" onsubmit="go()">
+        <input type="text" id="name">
+        <input type="text" id="mail">
+        <input type="submit">
+    </form>
+
+    <div id="output"></div>
+
+    <script>
+        myForm.onsubmit = function () {
+            var name = myForm.name.value;
+            var mail = myForm.mail.value;
+            document.getElementById("output").textContent = name+mail;
+        }
+    </script>
+</body>
+
+</html>
